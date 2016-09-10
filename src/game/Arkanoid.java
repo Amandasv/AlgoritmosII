@@ -40,23 +40,35 @@ public class Arkanoid extends GraphicApplication {
 		
 		bloco = new Sprite(18,10,Color.RED);
 		
-		paddle = new Sprite(25,5,Color.BLACK);
+		paddle = new Sprite(25,3,Color.GRAY);
 		
 		paddle.setPosition(
 				Resolution.MSX.width/2-5,
 				Resolution.MSX.height-10
 				);
 		
+		
 		bindKeyPressed("LEFT", new KeyboardAction() {
 			@Override
 			public void handleEvent() {
-				paddle.move(-3,0);				
+				Point positionPaddle = paddle.getPosition();
+				if(positionPaddle.x < 4){
+					paddle.move(0, 0);
+				}else{
+					paddle.move(-20,0);
+				}
 			}
 		});
 		bindKeyPressed("RIGHT", new KeyboardAction() {
 			@Override
 			public void handleEvent() {
-				paddle.move(3,0);				
+				Point positionPaddle = paddle.getPosition();
+				if(positionPaddle.x > Resolution.MSX.width - 34){
+					paddle.move(0,0);
+				}else{
+					paddle.move(20,0);
+				}
+								
 			}
 		});
 	}
@@ -72,20 +84,17 @@ public class Arkanoid extends GraphicApplication {
 		
 		if(position.x+bola.getWidth() < blocoPosition.x){
 			desenhaBloco=true;
-			// não bateu
 		}
 		
 		else if(position.x > blocoPosition.x+bloco.getWidth() ){
 			desenhaBloco=true;
-			// não bateu
 		}
 		else if(position.y+bola.getHeight() < blocoPosition.y){
 			desenhaBloco=true;
-			// não bateu
+
 		}
 		else if(position.y > blocoPosition.y+bloco.getHeight()){
 			desenhaBloco=true;
-			// não bateu
 		}
 		else
 			desenhaBloco = false;
