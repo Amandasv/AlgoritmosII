@@ -15,6 +15,8 @@ public class Arkanoid extends GraphicApplication {
 	private Bola bola;
 	private Sprite bloco;
 	private Sprite paddle;
+	private int widhtPadlle = 25;
+	private int heightPaddle = 3;
 	private boolean desenhaBloco=true;
 
 	@Override
@@ -39,12 +41,13 @@ public class Arkanoid extends GraphicApplication {
 		bola = new Bola();
 		
 		bloco = new Sprite(18,10,Color.RED);
+		bloco.setPosition(5, 3);
 		
-		paddle = new Sprite(25,3,Color.GRAY);
+		paddle = new Sprite(widhtPadlle,heightPaddle,Color.GRAY);
 		
 		paddle.setPosition(
 				Resolution.MSX.width/2-5,
-				Resolution.MSX.height-10
+				Resolution.MSX.height-50
 				);
 		
 		
@@ -76,6 +79,7 @@ public class Arkanoid extends GraphicApplication {
 	@Override
 	protected void loop() {
 		colidiuParede(bola);
+		colidiuPaddle(bola);
 		
 		bola.move();
 		
@@ -111,8 +115,15 @@ public class Arkanoid extends GraphicApplication {
 			bola.invertVertical();
 		}	
 	}
+	
+	private void colidiuPaddle(Bola bola){
+		Point positionBola = bola.getPosition();
+		Point positionPaddle = paddle.getPosition();
+		if(positionBola.x+bola.getWidth() == positionPaddle.x && positionBola.y >= positionPaddle.y && positionBola.y <= positionPaddle.y+heightPaddle ){
+			bola.invertHorizontal();
+		}
+		
+		
+		
+	}
 }
-
-
-
-
