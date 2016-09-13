@@ -21,18 +21,23 @@ public class Arkanoid extends GraphicApplication {
 	private int heightPaddle = 3;
 	private boolean desenhaBloco=true;
 	private Point positionPaddle,positionBola;
-	private Image background;
+	private Image background1, background2, background3 ;
 	
 	@Override
 	protected void draw(Canvas canvas) {
 		canvas.clear();
-		canvas.drawImage(background, 0,0);
+		canvas.drawImage(background1, 0,0);
+		
 		canvas.setBackground(Color.BLACK);
 		canvas.setForeground(Color.WHITE);
-		canvas.putText(256, 1, 9, ((Double)positionPaddle.x).toString());
-//		canvas.putText(70, 10, 12, ((Double)positionPaddle.y).toString());
-//		canvas.putText(70, 30, 12, ((Double)positionBola.x).toString());
-//		canvas.putText(70, 40, 12, ((Double)positionBola.y).toString());
+		canvas.putText(262, 1, 9, ((String)"Pontuação").toString());
+		canvas.putText(270, 12, 9, ((Double)positionPaddle.x).toString());
+		canvas.putText(264, 30, 9, ((String)"Recorde").toString());
+		canvas.putText(270, 40, 9, ((Double)positionPaddle.x).toString());
+		canvas.putText(264, 60, 9, ((String)"Vidas").toString());
+		canvas.putText(270, 70, 9, ((Double)positionPaddle.x).toString());
+		canvas.putText(264, 90, 9, ((String)"Fase").toString());
+		canvas.putText(270, 100, 9, ((Double)positionPaddle.x).toString());
 
 		bola.draw(canvas);
 		
@@ -48,7 +53,7 @@ public class Arkanoid extends GraphicApplication {
 	protected void setup() {
 		setResolution(Resolution.MODE_X);
 		setFramesPerSecond(60);
-		importaImagens();
+		carregarImagens();
 		bola = new Bola();
 		bola.setPosition(0, 30);
 		bloco = new Sprite(18,10,Color.RED);
@@ -58,7 +63,7 @@ public class Arkanoid extends GraphicApplication {
 		
 		paddle.setPosition(
 				Resolution.MSX.width/2-5,
-				Resolution.MSX.height-50
+				Resolution.MSX.height-8
 				);
 		
 		
@@ -122,7 +127,7 @@ public class Arkanoid extends GraphicApplication {
 		if (posicao.x < 0 || posicao.x >= Resolution.MSX.width-5 ){
 			bola.invertHorizontal();
 		}
-		if (posicao.y < 0 || posicao.y >= Resolution.MSX.height-5 || posicao.y <= 10) {
+		if (posicao.y < 0 || posicao.y >= Resolution.MSX.height-5) {
 			bola.invertVertical();
 		}	
 	}
@@ -135,9 +140,11 @@ public class Arkanoid extends GraphicApplication {
 
 		}		
 	}
-	private void importaImagens() {
+	private void carregarImagens() {
 		try {
-			background = new Image("imagens/bg_dia_verde.jpg");
+			background1 = new Image("imagens/background_1.jpg");
+			background2 = new Image("imagens/background_2.jpg");
+			background3 = new Image("imagens/background_3.jpg");
 		} catch (IOException e) {
 			e.printStackTrace(System.err);
 		}
