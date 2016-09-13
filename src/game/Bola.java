@@ -8,7 +8,7 @@ public class Bola extends Sprite {
 	private int dx = 1;
 
 	public Bola() {
-		super(5,5,Color.BLACK);
+		super(5,3,Color.BLACK);
 	}
 
 	public void move() {

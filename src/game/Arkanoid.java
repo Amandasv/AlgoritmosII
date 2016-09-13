@@ -18,11 +18,16 @@ public class Arkanoid extends GraphicApplication {
 	private int widhtPadlle = 25;
 	private int heightPaddle = 3;
 	private boolean desenhaBloco=true;
-
+	private Point positionPaddle,positionBola;
+	
 	@Override
 	protected void draw(Canvas canvas) {
 		canvas.clear();
-		
+		canvas.putText(70, 1, 12, ((Double)positionPaddle.x).toString());
+		canvas.putText(70, 10, 12, ((Double)positionPaddle.y).toString());
+		canvas.putText(70, 30, 12, ((Double)positionBola.x).toString());
+		canvas.putText(70, 40, 12, ((Double)positionBola.y).toString());
+
 		bola.draw(canvas);
 		
 		if(desenhaBloco){
@@ -80,9 +85,9 @@ public class Arkanoid extends GraphicApplication {
 	protected void loop() {
 		colidiuParede(bola);
 		colidiuPaddle(bola);
-		
+//		
 		bola.move();
-		
+//		
 		Point position = bola.getPosition();
 		Point blocoPosition = bloco.getPosition();
 		
@@ -117,13 +122,11 @@ public class Arkanoid extends GraphicApplication {
 	}
 	
 	private void colidiuPaddle(Bola bola){
-		Point positionBola = bola.getPosition();
-		Point positionPaddle = paddle.getPosition();
-		if(positionBola.x+bola.getWidth() == positionPaddle.x && positionBola.y >= positionPaddle.y && positionBola.y <= positionPaddle.y+heightPaddle ){
-			bola.invertHorizontal();
-		}
-		
-		
-		
+		positionBola = bola.getPosition();
+		positionPaddle = paddle.getPosition();
+		if(positionBola.x >= positionPaddle.x && positionBola.x <= positionPaddle.x+20 && positionBola.y == positionPaddle.y-3){
+			bola.invertVertical();
+
+		}		
 	}
 }
