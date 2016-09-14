@@ -16,12 +16,16 @@ public class Arkanoid extends GraphicApplication {
 
 	private Bola bola;
 	private Sprite bloco;
+	private Sprite blocoArray;
 	private Sprite paddle;
 	private int widhtPadlle = 25;
 	private int heightPaddle = 3;
+	private int pontos;
 	private boolean desenhaBloco=true;
 	private Point positionPaddle,positionBola;
-	private Image background1, background2, background3 ;
+	private Image background1, background2, background3;
+	private Sprite[] arrayBlocos;
+	
 	
 	@Override
 	protected void draw(Canvas canvas) {
@@ -31,7 +35,7 @@ public class Arkanoid extends GraphicApplication {
 		canvas.setBackground(Color.BLACK);
 		canvas.setForeground(Color.WHITE);
 		canvas.putText(262, 1, 9, ((String)"Pontuação").toString());
-		canvas.putText(270, 12, 9, ((Double)positionPaddle.x).toString());
+		canvas.putText(270, 12, 9, ((Integer)pontos).toString());
 		canvas.putText(264, 30, 9, ((String)"Recorde").toString());
 		canvas.putText(270, 40, 9, ((Double)positionPaddle.x).toString());
 		canvas.putText(264, 60, 9, ((String)"Vidas").toString());
@@ -47,6 +51,12 @@ public class Arkanoid extends GraphicApplication {
 		
 		paddle.draw(canvas);
 		
+		for(int i=0;i<arrayBlocos.length;i++){  
+			arrayBlocos[i].draw(canvas);
+			arrayBlocos[i].draw(canvas);
+			arrayBlocos[i].draw(canvas);
+		} 
+		
 	}
 
 	@Override
@@ -55,15 +65,17 @@ public class Arkanoid extends GraphicApplication {
 		setFramesPerSecond(60);
 		carregarImagens();
 		bola = new Bola();
-		bola.setPosition(0, 30);
+		bola.setPosition(20, 30);
 		bloco = new Sprite(18,10,Color.RED);
 		bloco.setPosition(10, 10);
+		
+		testeArray();
 		
 		paddle = new Sprite(widhtPadlle,heightPaddle,Color.GRAY);
 		
 		paddle.setPosition(
 				Resolution.MSX.width/2-5,
-				Resolution.MSX.height-8
+				Resolution.MSX.height-50
 				);
 		
 		
@@ -116,8 +128,11 @@ public class Arkanoid extends GraphicApplication {
 		else if(position.y > blocoPosition.y+bloco.getHeight()){
 			desenhaBloco=true;
 		}
-		else
+		else{
 			desenhaBloco = false;
+			bola.invertVertical();
+			pontos ++;
+		}
 		
 		redraw();
 	}
@@ -148,5 +163,12 @@ public class Arkanoid extends GraphicApplication {
 		} catch (IOException e) {
 			e.printStackTrace(System.err);
 		}
+	}
+	private void testeArray(){
+		arrayBlocos = new Sprite[2];
+		arrayBlocos[0] = new Sprite(18,10,Color.BLUE);
+		arrayBlocos[0].setPosition(10, 25);
+		arrayBlocos[1] = new Sprite(18,10,Color.YELLOW);
+		arrayBlocos[1].setPosition(10, 35);
 	}
 }
