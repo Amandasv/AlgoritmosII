@@ -26,7 +26,7 @@ public class Arkanoid extends GraphicApplication {
 	@Override
 	protected void draw(Canvas canvas) {
 		canvas.clear();
-		canvas.drawImage(background1, 0,0);
+		canvas.drawImage(background2, 0,0);
 		
 		canvas.setBackground(Color.BLACK);
 		canvas.setForeground(Color.WHITE);
