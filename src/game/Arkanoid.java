@@ -51,11 +51,11 @@ public class Arkanoid extends GraphicApplication {
 		
 		paddle.draw(canvas);
 		
-		for(int i=0;i<arrayBlocos.length;i++){  
-			arrayBlocos[i].draw(canvas);
-			arrayBlocos[i].draw(canvas);
-			arrayBlocos[i].draw(canvas);
-		} 
+//		for(int i=0;i<arrayBlocos.length;i++){
+//			if(desenhaBloco){
+//				arrayBlocos[i].draw(canvas);
+//			}
+//		} 
 		
 	}
 
@@ -65,11 +65,12 @@ public class Arkanoid extends GraphicApplication {
 		setFramesPerSecond(60);
 		carregarImagens();
 		bola = new Bola();
-		bola.setPosition(20, 30);
+		bola.setPosition(10, 30);
+		
 		bloco = new Sprite(18,10,Color.RED);
 		bloco.setPosition(10, 10);
 		
-		testeArray();
+//		testeArray();
 		
 		paddle = new Sprite(widhtPadlle,heightPaddle,Color.GRAY);
 		
@@ -112,7 +113,35 @@ public class Arkanoid extends GraphicApplication {
 		bola.move();
 //		
 		Point position = bola.getPosition();
-		Point blocoPosition = bloco.getPosition();
+		
+		//verifica no array se bateu em algum bloco
+		
+//		for(int i=0;i<arrayBlocos.length;i++){  
+//			Point positionBlocos = arrayBlocos[i].getPosition();
+//			
+//			if(position.x+bola.getWidth() < positionBlocos.x){
+//				desenhaBloco=true;
+//			}
+//			
+//			else if(position.x > positionBlocos.x+bloco.getWidth() ){
+//				desenhaBloco=true;
+//			}
+//			else if(position.y+bola.getHeight() < positionBlocos.y){
+//				desenhaBloco=true;
+//
+//			}
+//			else if(position.y > positionBlocos.y+bloco.getHeight()){
+//				desenhaBloco=true;
+//			}
+//			else{
+//				desenhaBloco = false;
+//				bola.invertVertical();
+//				pontos ++;
+//			}
+//		} 
+		
+		Point blocoPosition = bloco.getPosition();	
+		
 		
 		if(position.x+bola.getWidth() < blocoPosition.x){
 			desenhaBloco=true;
@@ -150,7 +179,7 @@ public class Arkanoid extends GraphicApplication {
 	private void colidiuPaddle(Bola bola){
 		positionBola = bola.getPosition();
 		positionPaddle = paddle.getPosition();
-		if(positionBola.x >= positionPaddle.x && positionBola.x <= positionPaddle.x+20 && positionBola.y == positionPaddle.y-3){
+		if(positionBola.x >= positionPaddle.x && positionBola.x <= positionPaddle.x+20 && positionBola.y == positionPaddle.y-heightPaddle){
 			bola.invertVertical();
 
 		}		
@@ -164,11 +193,12 @@ public class Arkanoid extends GraphicApplication {
 			e.printStackTrace(System.err);
 		}
 	}
-	private void testeArray(){
-		arrayBlocos = new Sprite[2];
-		arrayBlocos[0] = new Sprite(18,10,Color.BLUE);
-		arrayBlocos[0].setPosition(10, 25);
-		arrayBlocos[1] = new Sprite(18,10,Color.YELLOW);
-		arrayBlocos[1].setPosition(10, 35);
-	}
+	
+//	private void testeArray(){
+//		arrayBlocos = new Sprite[2];
+//		arrayBlocos[0] = new Sprite(18,10,Color.BLUE);
+//		arrayBlocos[0].setPosition(50, 50);
+//		arrayBlocos[1] = new Sprite(18,10,Color.YELLOW);
+//		arrayBlocos[1].setPosition(40, 35);
+//	}
 }
