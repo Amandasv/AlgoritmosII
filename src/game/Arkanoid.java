@@ -15,7 +15,8 @@ import com.senac.SimpleJava.Graphics.events.KeyboardAction;
 public class Arkanoid extends GraphicApplication {
 
 	private Bola bola;
-	private Sprite bloco;
+	private Bloco bloco;
+//	private Sprite bloco;
 	private Sprite blocoArray;
 	private Sprite paddle;
 	private int widhtPadlle = 25;
@@ -45,9 +46,9 @@ public class Arkanoid extends GraphicApplication {
 
 		bola.draw(canvas);
 		
-		if(desenhaBloco){
+//		if(desenhaBloco){
 			bloco.draw(canvas);
-		}
+//		}
 		
 		paddle.draw(canvas);
 		
@@ -67,7 +68,7 @@ public class Arkanoid extends GraphicApplication {
 		bola = new Bola();
 		bola.setPosition(10, 30);
 		
-		bloco = new Sprite(18,10,Color.RED);
+		bloco = new Bloco();
 		bloco.setPosition(10, 10);
 		
 //		testeArray();
@@ -109,10 +110,11 @@ public class Arkanoid extends GraphicApplication {
 	protected void loop() {
 		colidiuParede(bola);
 		colidiuPaddle(bola);
+		bloco.colidiu(bola);
 //		
 		bola.move();
 //		
-		Point position = bola.getPosition();
+//		Point position = bola.getPosition();
 		
 		//verifica no array se bateu em algum bloco
 		
@@ -139,29 +141,7 @@ public class Arkanoid extends GraphicApplication {
 //				pontos ++;
 //			}
 //		} 
-		
-		Point blocoPosition = bloco.getPosition();	
-		
-		
-		if(position.x+bola.getWidth() < blocoPosition.x){
-			desenhaBloco=true;
-		}
-		
-		else if(position.x > blocoPosition.x+bloco.getWidth() ){
-			desenhaBloco=true;
-		}
-		else if(position.y+bola.getHeight() < blocoPosition.y){
-			desenhaBloco=true;
 
-		}
-		else if(position.y > blocoPosition.y+bloco.getHeight()){
-			desenhaBloco=true;
-		}
-		else{
-			desenhaBloco = false;
-			bola.invertVertical();
-			pontos ++;
-		}
 		
 		redraw();
 	}

@@ -23,4 +23,5 @@ public class Bola extends Sprite {
 		dy *= -1;
 	}
 	
+	
 }
