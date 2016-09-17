@@ -9,8 +9,8 @@ import com.senac.SimpleJava.Graphics.Sprite;
 public class Bloco extends Sprite{
 
 	private boolean aparecer = true;
-	public Bloco() {
-		super(18, 10, Color.BLUE);
+	public Bloco(Color cor) {
+		super(18, 10, cor);
 		
 	}
 	

@@ -8,6 +8,7 @@ import com.senac.SimpleJava.Graphics.Color;
 import com.senac.SimpleJava.Graphics.GraphicApplication;
 import com.senac.SimpleJava.Graphics.Image;
 import com.senac.SimpleJava.Graphics.Point;
+import com.senac.SimpleJava.Graphics.Rect;
 import com.senac.SimpleJava.Graphics.Resolution;
 import com.senac.SimpleJava.Graphics.Sprite;
 import com.senac.SimpleJava.Graphics.events.KeyboardAction;
@@ -16,8 +17,9 @@ public class Arkanoid extends GraphicApplication {
 
 	private Bola bola;
 	private Bloco bloco;
-//	private Sprite bloco;
-	private Sprite blocoArray;
+	private Bloco bloco2;
+	private Bloco blocos[];
+
 	private Sprite paddle;
 	private int widhtPadlle = 25;
 	private int heightPaddle = 3;
@@ -25,13 +27,12 @@ public class Arkanoid extends GraphicApplication {
 	private boolean desenhaBloco=true;
 	private Point positionPaddle,positionBola;
 	private Image background1, background2, background3;
-	private Sprite[] arrayBlocos;
 	
 	
 	@Override
 	protected void draw(Canvas canvas) {
 		canvas.clear();
-		canvas.drawImage(background2, 0,0);
+		canvas.drawImage(background1, 0,0);
 		
 		canvas.setBackground(Color.BLACK);
 		canvas.setForeground(Color.WHITE);
@@ -45,11 +46,14 @@ public class Arkanoid extends GraphicApplication {
 		canvas.putText(270, 100, 9, ((Double)positionPaddle.x).toString());
 
 		bola.draw(canvas);
+//		bloco.draw(canvas);
+//		bloco2.draw(canvas);
 		
-//		if(desenhaBloco){
-			bloco.draw(canvas);
-//		}
-		
+		for (int i = 0; i < 50; i++) {
+			blocos[i].draw(canvas);
+		}
+	
+
 		paddle.draw(canvas);
 		
 //		for(int i=0;i<arrayBlocos.length;i++){
@@ -68,9 +72,13 @@ public class Arkanoid extends GraphicApplication {
 		bola = new Bola();
 		bola.setPosition(10, 30);
 		
-		bloco = new Bloco();
+		bloco = new Bloco(Color.CYAN);
 		bloco.setPosition(10, 10);
+
+		bloco2 = new Bloco(Color.YELLOW);
+		bloco2.setPosition(10, 2);
 		
+		desenhaBlocos();
 //		testeArray();
 		
 		paddle = new Sprite(widhtPadlle,heightPaddle,Color.GRAY);
@@ -111,8 +119,14 @@ public class Arkanoid extends GraphicApplication {
 		colidiuParede(bola);
 		colidiuPaddle(bola);
 		bloco.colidiu(bola);
+		bloco2.colidiu(bola);
+		
+		for (int i = 0; i < 50; i++) {
+			blocos[i].colidiu(bola);
+		}
+		
 //		
-		bola.move();
+//		bola.move();
 //		
 //		Point position = bola.getPosition();
 		
@@ -173,6 +187,32 @@ public class Arkanoid extends GraphicApplication {
 			e.printStackTrace(System.err);
 		}
 	}
+	
+	private void desenhaBlocos(){
+		blocos = new Bloco[50];
+		for (int i = 0; i < blocos.length; i++) {
+			blocos[i] = new Bloco(Color.RED);
+			int x = (i%10)*20+10;
+			int y = (i/8)*10+5;
+			int bottom = blocos[i].getHeight();
+			blocos[i].setPosition(x,y);
+		}
+
+	}
+	
+	
+//	int deltaMax = res.width - 35*5;
+//	enemies = new GameObject[15];
+//	for (int i =0; i < 15; i++) {
+//		enemies[i] = new GameObject(img);
+//		enemies[i].resize(30, 30);
+//		int x = (i%5)*35+25;
+//		int y = (i/5)*35+5;
+//		int bottom = enemies[i].getHeight();
+//		enemies[i].setPosition(new Point(x,y));
+//		enemies[i].setLimits(new Rect(x,y,x+deltaMax,y+bottom));
+//	}			
+	
 	
 //	private void testeArray(){
 //		arrayBlocos = new Sprite[2];
