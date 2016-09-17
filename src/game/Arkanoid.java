@@ -22,13 +22,9 @@ public class Arkanoid extends GraphicApplication {
 	private Bloco blocosAzuis[];
 	private Bloco blocosPretos[];
 
-//	private Sprite paddle;
-	private int widhtPadlle = 25;
-	private int heightPaddle = 3;
 	private int pontos;
-	private boolean desenhaBloco=true;
-	private Point positionPaddle,positionBola;
 	private Image background1, background2, background3;
+	private int vidas = 3;
 	
 	
 	@Override
@@ -43,7 +39,7 @@ public class Arkanoid extends GraphicApplication {
 		canvas.putText(264, 30, 9, ((String)"Recorde").toString());
 //		canvas.putText(270, 40, 9, ((Double)positionPaddle.x).toString());
 		canvas.putText(264, 60, 9, ((String)"Vidas").toString());
-//		canvas.putText(270, 70, 9, ((Double)positionPaddle.x).toString());
+		canvas.putText(270, 70, 9, ((Integer)vidas).toString());
 		canvas.putText(264, 90, 9, ((String)"Fase").toString());
 //		canvas.putText(270, 100, 9, ((Double)positionPaddle.x).toString());
 
@@ -113,6 +109,7 @@ public class Arkanoid extends GraphicApplication {
 	protected void loop() {
 		colidiuParede(bola);
 		paddle.colidiu(bola);
+		passouPaddle(bola);
 		
 		for (int i = 0; i < 12; i++) {
 			blocosBrancos[i].colidiu(bola);
@@ -138,6 +135,27 @@ public class Arkanoid extends GraphicApplication {
 		if (posicao.y < 0 || posicao.y >= Resolution.MSX.height-5) {
 			bola.invertVertical();
 		}	
+	}
+	
+	private void passouPaddle(Bola bola){
+		Point posicaoBola = bola.getPosition();
+		Point posicaoPaddle = paddle.getPosition();
+		
+		if(posicaoBola.y > posicaoPaddle.y){
+			vidas--;
+			iniciaJogo();
+		}	
+		
+	}
+	
+	private void iniciaJogo(){
+		paddle.setPosition(
+				Resolution.MSX.width/2-5,
+				Resolution.MSX.height-50
+				);
+		
+		bola.setPosition(Resolution.MSX.width/2-5,
+				Resolution.MSX.height-60);
 	}
 
 	private void carregarImagens() {
