@@ -49,7 +49,7 @@ public class Arkanoid extends GraphicApplication {
 //		bloco.draw(canvas);
 //		bloco2.draw(canvas);
 		
-		for (int i = 0; i < 50; i++) {
+		for (int i = 0; i < 12; i++) {
 			blocos[i].draw(canvas);
 		}
 	
@@ -121,7 +121,7 @@ public class Arkanoid extends GraphicApplication {
 		bloco.colidiu(bola);
 		bloco2.colidiu(bola);
 		
-		for (int i = 0; i < 50; i++) {
+		for (int i = 0; i < 12; i++) {
 			blocos[i].colidiu(bola);
 		}
 		
@@ -189,12 +189,11 @@ public class Arkanoid extends GraphicApplication {
 	}
 	
 	private void desenhaBlocos(){
-		blocos = new Bloco[50];
+		blocos = new Bloco[12];
 		for (int i = 0; i < blocos.length; i++) {
 			blocos[i] = new Bloco(Color.RED);
-			int x = (i%10)*20+10;
-			int y = (i/8)*10+5;
-			int bottom = blocos[i].getHeight();
+			int x = (i%12)*20+10;
+			int y = 10;
 			blocos[i].setPosition(x,y);
 		}
 
