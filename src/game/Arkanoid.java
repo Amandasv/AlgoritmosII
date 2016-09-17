@@ -17,7 +17,7 @@ public class Arkanoid extends GraphicApplication {
 
 	private Bola bola;
 	private Paddle paddle;
-
+	
 	private Bloco blocosBrancos[];
 	private Bloco blocosAzuis[];
 	private Bloco blocosPretos[];
@@ -25,6 +25,8 @@ public class Arkanoid extends GraphicApplication {
 	private int pontos;
 	private Image background1, background2, background3;
 	private int vidas = 3;
+	
+	public String teste;
 	
 	
 	@Override
@@ -65,6 +67,7 @@ public class Arkanoid extends GraphicApplication {
 		setFramesPerSecond(60);
 		carregarImagens();
 		
+		
 		bola = new Bola();
 		
 		bola.setPosition(Resolution.MSX.width/2-5,
@@ -102,7 +105,8 @@ public class Arkanoid extends GraphicApplication {
 				}
 								
 			}
-		});
+		});		
+		
 	}
 
 	@Override
@@ -123,7 +127,8 @@ public class Arkanoid extends GraphicApplication {
 			blocosPretos[i].colidiu(bola);
 		}
 		
-		bola.move();		
+		bola.move();
+	 	
 		redraw();
 	}
 	

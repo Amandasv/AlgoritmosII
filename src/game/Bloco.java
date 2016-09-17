@@ -33,7 +33,12 @@ public class Bloco extends Sprite{
 			return true;
 		} else{
 			aparecer = false;
-			bola.invertVertical();
+			if(posicaoBola.x + bola.getWidth() > posicaoTamanhoBloco.x){
+				bola.invertVertical();
+			}else{			
+				
+				bola.invertHorizontal();
+				}
 			return false;
 
 		}
