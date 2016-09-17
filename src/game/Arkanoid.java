@@ -32,7 +32,7 @@ public class Arkanoid extends GraphicApplication {
 	@Override
 	protected void draw(Canvas canvas) {
 		canvas.clear();
-		canvas.drawImage(background1, 0,0);
+		canvas.drawImage(background3, 0,0);
 		
 		canvas.setBackground(Color.BLACK);
 		canvas.setForeground(Color.WHITE);
@@ -115,16 +115,17 @@ public class Arkanoid extends GraphicApplication {
 		paddle.colidiu(bola);
 		passouPaddle(bola);
 		
+		
 		for (int i = 0; i < 12; i++) {
-			blocosBrancos[i].colidiu(bola);
+			blocosBrancos[i].colidiu(bola, 1);
 		}
 		
 		for (int i = 0; i < 12; i++) {
-			blocosAzuis[i].colidiu(bola);
+			blocosAzuis[i].colidiu(bola, 2);
 		}
 
 		for (int i = 0; i < 12; i++) {
-			blocosPretos[i].colidiu(bola);
+			blocosPretos[i].colidiu(bola, 1);
 		}
 		
 		bola.move();
