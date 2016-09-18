@@ -36,7 +36,7 @@ public class Arkanoid extends GraphicApplication {
 		canvas.setBackground(Color.BLACK);
 		canvas.setForeground(Color.WHITE);
 		canvas.putText(262, 1, 9, ((String)"Pontuação").toString());
-		canvas.putText(270, 12, 9, ((Integer)contadorDefinitivo).toString());
+		canvas.putText(270, 12, 9, ((Integer)pontos).toString());
 		canvas.putText(264, 30, 9, ((String)"Recorde").toString());
 //		canvas.putText(270, 40, 9, ((Double)positionPaddle.x).toString());
 		canvas.putText(264, 60, 9, ((String)"Vidas").toString());
@@ -48,9 +48,9 @@ public class Arkanoid extends GraphicApplication {
 		
 		for (int i = 0; i < 12; i++) {
 			blocosBrancos[i].draw(canvas);
-//			blocosAzuis[i].draw(canvas);
+			blocosAzuis[i].draw(canvas);
 			blocosPretos[i].draw(canvas);
-			blocosRosas[i].draw(canvas);
+//			blocosRosas[i].draw(canvas);
 		}
 		paddle.draw(canvas);
 		
@@ -111,9 +111,28 @@ public class Arkanoid extends GraphicApplication {
 	}
 	
 	public void verificaColisao(Bloco[] blocos){
+		Rect posicaoBola = bola.getBounds();	
+		
+		
 		for (int i = 0; i < blocos.length; i++) {
-			blocos[i].colidiu(bola);
+			Rect posicaoTamanhoBloco = blocos[i].getBounds();
+			if(blocos[i].colidiu(bola)){
+				if(posicaoBola.y + posicaoBola.height == posicaoTamanhoBloco.y ||
+						posicaoBola.y == posicaoTamanhoBloco.y + posicaoTamanhoBloco.height){
+					bola.invertVertical();
+				}
+				bola.invertHorizontal();
+				
+				pontos++;
+			}
 		}
+		
+//		for (int i = 0; i < tamanhoArrayBloco; i++) {
+//			if(bloco[i].colidiu(bola)){
+//				bola.invertVertical();
+//				score = score +100;
+//			}
+//		}
 	}
 	
 	
