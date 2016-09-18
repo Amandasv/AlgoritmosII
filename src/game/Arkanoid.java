@@ -101,22 +101,20 @@ public class Arkanoid extends GraphicApplication {
 		paddle.colidiu(bola);
 		passouPaddle(bola);		
 
-		verificaColisao(blocosBrancos);
-		verificaColisao(blocosAzuis);
-		verificaColisao(blocosPretos);			
+		verificaColisao(blocosBrancos, 3);
+		verificaColisao(blocosAzuis, 1);
+		verificaColisao(blocosPretos, 2);			
 		
 		bola.move();
 	 	
 		redraw();
 	}
 	
-	public void verificaColisao(Bloco[] blocos){
-		Rect posicaoBola = bola.getBounds();	
-		
-		
+	public void verificaColisao(Bloco[] blocos, int nivel){
+		Rect posicaoBola = bola.getBounds();		
 		for (int i = 0; i < blocos.length; i++) {
 			Rect posicaoTamanhoBloco = blocos[i].getBounds();
-			if(blocos[i].colidiu(bola)){
+			if(blocos[i].colidiu(bola, nivel)){
 				if(posicaoBola.y + posicaoBola.height == posicaoTamanhoBloco.y ||
 						posicaoBola.y == posicaoTamanhoBloco.y + posicaoTamanhoBloco.height){
 					bola.invertVertical();
@@ -126,16 +124,7 @@ public class Arkanoid extends GraphicApplication {
 				pontos++;
 			}
 		}
-		
-//		for (int i = 0; i < tamanhoArrayBloco; i++) {
-//			if(bloco[i].colidiu(bola)){
-//				bola.invertVertical();
-//				score = score +100;
-//			}
-//		}
 	}
-	
-	
 	
 	private void colidiuParede(Bola bola) {
 		Point posicao = bola.getPosition();

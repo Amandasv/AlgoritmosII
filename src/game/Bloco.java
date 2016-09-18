@@ -9,12 +9,14 @@ import com.senac.SimpleJava.Graphics.Sprite;
 public class Bloco extends Sprite{
 
 	private boolean aparecer = true;
+	private int contN2, contN3;
+	
 	public Bloco(Color cor) {
 		super(18, 10, cor);
 		
 	}
 	
-	public boolean colidiu(Bola bola){
+	public boolean colidiu(Bola bola,int nivel){
 		
 		if(!aparecer)
 			return false;
@@ -24,59 +26,37 @@ public class Bloco extends Sprite{
 		
 		if(posicaoBola.x + bola.getWidth() >= posicaoTamanhoBloco.x && posicaoBola.x <= posicaoTamanhoBloco.x + posicaoTamanhoBloco.width){
 			if(posicaoBola.y + bola.getHeight() >= posicaoTamanhoBloco.y && posicaoBola.y <= posicaoTamanhoBloco.y + posicaoTamanhoBloco.height){
-				aparecer = false;
+				mudaComportamento(nivel);
 				return true;
 			}
 		}
 		return false;
 
 		}
-//		if(posicaoBola.x >= posicaoTamanhoBloco.x && posicaoBola.x + bola.getWidth() <= posicaoTamanhoBloco.x + posicaoTamanhoBloco.width){
-//			if(posicaoBola.y >= posicaoTamanhoBloco.y && posicaoBola.y <= posicaoTamanhoBloco.y + posicaoTamanhoBloco.height){
-//				
-//			}
-//		}
-//			return false;
-//		}
-	
-//	
-//	if(	posicaoBola.x >= posicaoTamanhoPaddle.x && 
-//			posicaoBola.x <= posicaoTamanhoPaddle.x +20 && 
-//			posicaoBola.y == posicaoTamanhoPaddle.y-posicaoTamanhoPaddle.height)
-//		{
 
-//		if(posicaoTamanhoBloco.x <= posicaoBola.x && posicaoTamanhoBloco.x + posicaoTamanhoBloco.width >= posicaoBola.x){
-//			if(posicaoTamanhoBloco.y <= posicaoBola.y && posicaoTamanhoBloco.y + posicaoTamanhoBloco.height >= posicaoBola.y){
-//				
-//			}
-//		}
-		
-		
-//		if(posicaoBola.x+bola.getWidth() < posicaoTamanhoBloco.x ){
-//			return true;
-//		} else if(posicaoBola.x > posicaoTamanhoBloco.x+posicaoTamanhoBloco.width){
-//			return true;
-//		} else if(posicaoBola.y + bola.getHeight() < posicaoTamanhoBloco.y){
-//			return true;
-//		} else if (posicaoBola.y > posicaoTamanhoBloco.y+posicaoTamanhoBloco.height){
-//			return true;
-//		} else{
-//			aparecer= false;					
-//			if(posicaoBola.x + bola.getWidth() > posicaoTamanhoBloco.x){
-//				bola.invertVertical();
-//			}else{	
-//				bola.invertHorizontal();
-//			}
-//			return false;
-//		}			
 	
-	
-//	
-//	if (super.getPosition().x <= posicaoBola.x && tamanhoX >= posicaoBola.x)
-//		if (super.getPosition().y <= posicaoBola.y && tamanhoY >= posicaoBola.y){
-//			alive = false;
-//			return true;
-//		}
+	public boolean mudaComportamento(int nivel){
+		
+		switch (nivel) {
+		case 1:
+			aparecer = false;
+			break;
+		case 2:			
+			contN2++;
+			if(contN2 == 2){
+				aparecer = false;
+			}
+		case 3:
+			contN3++;
+			if(contN3 == 3){
+				aparecer = false;
+			}	
+
+		default:
+			break;
+		}
+		return aparecer;
+	}
 	
 	
 	@Override
