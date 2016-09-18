@@ -9,13 +9,12 @@ import com.senac.SimpleJava.Graphics.Sprite;
 public class Bloco extends Sprite{
 
 	private boolean aparecer = true;
-	private int contadorBatidas;
 	public Bloco(Color cor) {
 		super(18, 10, cor);
 		
 	}
 	
-	public boolean colidiu(Bola bola, int tipo){
+	public boolean colidiu(Bola bola){
 		
 		if(!aparecer)
 			return false;
@@ -33,26 +32,17 @@ public class Bloco extends Sprite{
 		} else if (posicaoBola.y > posicaoTamanhoBloco.y+posicaoTamanhoBloco.height){
 			return true;
 		} else{
-			if(tipo == 1){
-				aparecer = false;
-			} else if(tipo == 2 ){
-				contadorBatidas++;				
-				if (contadorBatidas == 2){
-					aparecer = false;
-				}
-			}
-			
+			aparecer= false;					
 			if(posicaoBola.x + bola.getWidth() > posicaoTamanhoBloco.x){
 				bola.invertVertical();
-			}else{			
-				
+			}else{	
 				bola.invertHorizontal();
-				}
+			}
 			return false;
-
-		}
-			
+		}			
 	}
+		
+	
 	
 	@Override
 	public void draw(Canvas canvas) {
@@ -63,13 +53,4 @@ public class Bloco extends Sprite{
 
 }
 
-//Point position = bola.getPosition();
 
-//else if(position.y > blocoPosition.y+bloco.getHeight()){
-//	desenhaBloco=true;
-//}
-//else{
-//	desenhaBloco = false;
-//	bola.invertVertical();
-//	pontos ++;
-//}

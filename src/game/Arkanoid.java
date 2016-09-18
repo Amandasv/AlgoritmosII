@@ -18,15 +18,14 @@ public class Arkanoid extends GraphicApplication {
 	private Bola bola;
 	private Paddle paddle;
 	
-	private Bloco blocosBrancos[];
-	private Bloco blocosAzuis[];
-	private Bloco blocosPretos[];
-
 	private int pontos;
 	private Image background1, background2, background3;
 	private int vidas = 3;
 	
 	public String teste;
+	private Bloco[] blocosRosas, blocosBrancos, blocosAzuis, blocosPretos;
+	private int contadorBlocos;
+	private int contadorDefinitivo;
 	
 	
 	@Override
@@ -37,7 +36,7 @@ public class Arkanoid extends GraphicApplication {
 		canvas.setBackground(Color.BLACK);
 		canvas.setForeground(Color.WHITE);
 		canvas.putText(262, 1, 9, ((String)"Pontuação").toString());
-		canvas.putText(270, 12, 9, ((Integer)pontos).toString());
+		canvas.putText(270, 12, 9, ((Integer)contadorDefinitivo).toString());
 		canvas.putText(264, 30, 9, ((String)"Recorde").toString());
 //		canvas.putText(270, 40, 9, ((Double)positionPaddle.x).toString());
 		canvas.putText(264, 60, 9, ((String)"Vidas").toString());
@@ -49,14 +48,10 @@ public class Arkanoid extends GraphicApplication {
 		
 		for (int i = 0; i < 12; i++) {
 			blocosBrancos[i].draw(canvas);
-		}
-		for (int i = 0; i < 12; i++) {
-			blocosAzuis[i].draw(canvas);
-		}
-		for (int i = 0; i < 12; i++) {
+//			blocosAzuis[i].draw(canvas);
 			blocosPretos[i].draw(canvas);
-		}		
-
+			blocosRosas[i].draw(canvas);
+		}
 		paddle.draw(canvas);
 		
 	}
@@ -71,7 +66,7 @@ public class Arkanoid extends GraphicApplication {
 		bola = new Bola();
 		
 		bola.setPosition(Resolution.MSX.width/2-5,
-				Resolution.MSX.height-60);
+				Resolution.MSX.height-30);
 			
 		desenhaBlocos();
 		
@@ -79,30 +74,21 @@ public class Arkanoid extends GraphicApplication {
 		
 		paddle.setPosition(
 				Resolution.MSX.width/2-5,
-				Resolution.MSX.height-50
+				Resolution.MSX.height-20
 				);
 		
 		
 		bindKeyPressed("LEFT", new KeyboardAction() {
 			@Override
 			public void handleEvent() {
-				Point positionPaddle = paddle.getPosition();
-				if(positionPaddle.x < 4){
-					paddle.move(0, 0);
-				}else{
-					paddle.move(-20,0);
-				}
+				paddle.moveEsquerda();
 			}
 		});
+		
 		bindKeyPressed("RIGHT", new KeyboardAction() {
 			@Override
 			public void handleEvent() {
-				Point positionPaddle = paddle.getPosition();
-				if(positionPaddle.x > Resolution.MSX.width - 34){
-					paddle.move(0,0);
-				}else{
-					paddle.move(20,0);
-				}
+				paddle.moveDireita();
 								
 			}
 		});		
@@ -113,25 +99,24 @@ public class Arkanoid extends GraphicApplication {
 	protected void loop() {
 		colidiuParede(bola);
 		paddle.colidiu(bola);
-		passouPaddle(bola);
-		
-		
-		for (int i = 0; i < 12; i++) {
-			blocosBrancos[i].colidiu(bola, 1);
-		}
-		
-		for (int i = 0; i < 12; i++) {
-			blocosAzuis[i].colidiu(bola, 2);
-		}
+		passouPaddle(bola);		
 
-		for (int i = 0; i < 12; i++) {
-			blocosPretos[i].colidiu(bola, 1);
-		}
+		verificaColisao(blocosBrancos);
+		verificaColisao(blocosAzuis);
+		verificaColisao(blocosPretos);			
 		
 		bola.move();
 	 	
 		redraw();
 	}
+	
+	public void verificaColisao(Bloco[] blocos){
+		for (int i = 0; i < blocos.length; i++) {
+			blocos[i].colidiu(bola);
+		}
+	}
+	
+	
 	
 	private void colidiuParede(Bola bola) {
 		Point posicao = bola.getPosition();
@@ -150,18 +135,17 @@ public class Arkanoid extends GraphicApplication {
 		if(posicaoBola.y > posicaoPaddle.y){
 			vidas--;
 			iniciaJogo();
-		}	
-		
+		}		
 	}
 	
 	private void iniciaJogo(){
 		paddle.setPosition(
 				Resolution.MSX.width/2-5,
-				Resolution.MSX.height-50
+				Resolution.MSX.height-20
 				);
 		
 		bola.setPosition(Resolution.MSX.width/2-5,
-				Resolution.MSX.height-60);
+				Resolution.MSX.height-30);
 	}
 
 	private void carregarImagens() {
@@ -178,25 +162,34 @@ public class Arkanoid extends GraphicApplication {
 		blocosBrancos = new Bloco[12];
 		blocosAzuis = new Bloco[12];
 		blocosPretos = new Bloco[12];
+		blocosRosas = new Bloco[12];
+		
+		for (int i = 0; i < blocosRosas.length; i++) {
+			blocosRosas[i] = new Bloco(Color.MAGENTA);
+			int x = (i%12)*20+10;
+			int y = 20;
+			blocosRosas[i].setPosition(x,y);
+		}
+		
 		
 		for (int i = 0; i < blocosBrancos.length; i++) {
 			blocosBrancos[i] = new Bloco(Color.WHITE);
 			int x = (i%12)*20+10;
-			int y = 10;
+			int y = 5;
 			blocosBrancos[i].setPosition(x,y);
 		}
 		
 		for (int i = 0; i < blocosAzuis.length; i++) {
 			blocosAzuis[i] = new Bloco(Color.BLUE);
 			int x = (i%12)*20+10;
-			int y = 25;
+			int y = 20;
 			blocosAzuis[i].setPosition(x,y);
 		}
 		
 		for (int i = 0; i < blocosPretos.length; i++) {
 			blocosPretos[i] = new Bloco(Color.BLACK);
 			int x = (i%12)*20+10;
-			int y = 40;
+			int y = 35;
 			blocosPretos[i].setPosition(x,y);
 		}
 		
