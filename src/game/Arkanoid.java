@@ -31,7 +31,7 @@ public class Arkanoid extends GraphicApplication {
 	@Override
 	protected void draw(Canvas canvas) {
 		canvas.clear();
-		canvas.drawImage(background3, 0,0);
+		canvas.drawImage(background1, 0,0);
 		
 		canvas.setBackground(Color.BLACK);
 		canvas.setForeground(Color.WHITE);
@@ -101,9 +101,9 @@ public class Arkanoid extends GraphicApplication {
 		paddle.colidiu(bola);
 		passouPaddle(bola);		
 
-		verificaColisao(blocosBrancos, 3);
-		verificaColisao(blocosAzuis, 1);
-		verificaColisao(blocosPretos, 2);			
+		verificaColisao(blocosBrancos, 1);
+		verificaColisao(blocosAzuis, 2);
+		verificaColisao(blocosPretos, 3);			
 		
 		bola.move();
 	 	
@@ -153,7 +153,7 @@ public class Arkanoid extends GraphicApplication {
 				);
 		
 		bola.setPosition(Resolution.MSX.width/2-5,
-				Resolution.MSX.height-30);
+				Resolution.MSX.height-50);
 	}
 
 	private void carregarImagens() {
@@ -183,7 +183,7 @@ public class Arkanoid extends GraphicApplication {
 		for (int i = 0; i < blocosBrancos.length; i++) {
 			blocosBrancos[i] = new Bloco(Color.WHITE);
 			int x = (i%12)*20+10;
-			int y = 5;
+			int y = 35;
 			blocosBrancos[i].setPosition(x,y);
 		}
 		
@@ -197,7 +197,7 @@ public class Arkanoid extends GraphicApplication {
 		for (int i = 0; i < blocosPretos.length; i++) {
 			blocosPretos[i] = new Bloco(Color.BLACK);
 			int x = (i%12)*20+10;
-			int y = 35;
+			int y = 5;
 			blocosPretos[i].setPosition(x,y);
 		}
 		
