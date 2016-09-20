@@ -15,7 +15,7 @@ public class Paddle extends Sprite {
 	
 	public void moveEsquerda(){
 		Rect posicaoTamanhoPaddle = getBounds();
-		if(posicaoTamanhoPaddle.x < 4){
+		if(posicaoTamanhoPaddle.x <= 3){
 			super.move(0,0);
 		} else{
 			super.move(-20, 0);

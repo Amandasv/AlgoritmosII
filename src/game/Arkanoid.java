@@ -23,7 +23,7 @@ public class Arkanoid extends GraphicApplication {
 	private int pontos;
 	private Image background1, background2, background3;
 	private int vidas = 3;
-	private int fase = 1;
+	private int fase = 1, recorde = 2300;
 	public String teste;
 	private int tamanhoArray = 12;
 	
@@ -55,9 +55,9 @@ public class Arkanoid extends GraphicApplication {
 			for (int i = 0; i < 12; i++) {				
 				blocosRosas[i].draw(canvas);
 				blocosCinzas[i].draw(canvas);
-				blocosCinzaClaro[i].draw(canvas);
-				
+				blocosCinzaClaro[i].draw(canvas);				
 			}
+
 		} else if(fase == 3){
 			canvas.drawImage(background3, 0,0);
 			for (int i = 0; i < 12; i++) {	
@@ -68,12 +68,14 @@ public class Arkanoid extends GraphicApplication {
 		
 		canvas.setBackground(Color.BLACK);
 		canvas.setForeground(Color.WHITE);
-		canvas.putText(262, 1, 9, ((String)"Pontuação").toString());
+		canvas.putText(262, 1, 9, ((String)"Pontos").toString());
 		canvas.putText(270, 12, 9, ((Integer)pontos).toString());
-		canvas.putText(264, 60, 9, ((String)"Vidas").toString());
-		canvas.putText(270, 70, 9, ((Integer)vidas).toString());
-		canvas.putText(264, 90, 9, ((String)"Fase").toString());
-		canvas.putText(270, 100, 9, ((Integer)fase).toString());
+		canvas.putText(264, 30, 9, ((String)"Vidas").toString());
+		canvas.putText(270, 40, 9, ((Integer)vidas).toString());
+		canvas.putText(264, 60, 9, ((String)"Fase").toString());
+		canvas.putText(270, 70, 9, ((Integer)fase).toString());		
+		canvas.putText(264, 90, 9, ((String)"Recorde").toString());
+		canvas.putText(270, 100, 9, ((Integer)recorde).toString());
 
 		bola.draw(canvas);		
 		
@@ -142,6 +144,10 @@ public class Arkanoid extends GraphicApplication {
 		}
 		
 		bola.move();
+		
+		if(pontos >= recorde){
+			recorde = pontos;
+		}
 		
 		redraw();
 	}
