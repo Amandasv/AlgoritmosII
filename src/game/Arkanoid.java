@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import javax.swing.JOptionPane;
 
-import com.senac.SimpleJava.Console;
 import com.senac.SimpleJava.Graphics.Canvas;
 import com.senac.SimpleJava.Graphics.Color;
 import com.senac.SimpleJava.Graphics.GraphicApplication;
@@ -12,7 +11,6 @@ import com.senac.SimpleJava.Graphics.Image;
 import com.senac.SimpleJava.Graphics.Point;
 import com.senac.SimpleJava.Graphics.Rect;
 import com.senac.SimpleJava.Graphics.Resolution;
-import com.senac.SimpleJava.Graphics.Sprite;
 import com.senac.SimpleJava.Graphics.events.KeyboardAction;
 
 public class Arkanoid extends GraphicApplication {
@@ -117,8 +115,7 @@ public class Arkanoid extends GraphicApplication {
 				paddle.moveDireita();
 								
 			}
-		});		
-		
+		});				
 	}
 
 	@Override
@@ -128,12 +125,10 @@ public class Arkanoid extends GraphicApplication {
 		passouPaddle(bola);		
 		
 		controlaFases(pontos);
-
 		
 		if (fase == 1){
 			verificaColisao(blocosBrancos, 1);
-			verificaColisao(blocosAzuis, 1);
-			
+			verificaColisao(blocosAzuis, 1);			
 		} else if (fase == 2){
 			verificaColisao(blocosRosas, 2);
 			verificaColisao(blocosCinzas, 1);
@@ -147,19 +142,18 @@ public class Arkanoid extends GraphicApplication {
 		
 		if(pontos >= recorde){
 			recorde = pontos;
-		}
-		
+		}		
 		redraw();
-	}
+	}	
 	
 	public void controlaFases(int pontos){
 		if(pontos < 2400){
 			fase = 1;
 		} else if(pontos >= 2400 && pontos < 7200){
-			fase = 2;			
+			fase = 2;
 		} else{
 			fase = 3;
-		}
+		}		
 	}
 		
 	public void verificaColisao(Bloco[] blocos, int numeroColisao){
@@ -174,9 +168,8 @@ public class Arkanoid extends GraphicApplication {
 					bola.invertHorizontal();
 				}
 				pontos = pontos +100;
-	
 			}
-		}
+		}		
 	}	
 	
 	private void colidiuParede(Bola bola) {
@@ -201,8 +194,7 @@ public class Arkanoid extends GraphicApplication {
 			} else {
 				JOptionPane.showMessageDialog(null, "Fim de jogo!");
 				System.exit(0);
-			}
-			
+			}			
 		}		
 	}
 	
@@ -236,5 +228,4 @@ public class Arkanoid extends GraphicApplication {
 			blocos[i].setPosition(x,y);
 		}		
 	}
-
 }

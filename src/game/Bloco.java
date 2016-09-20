@@ -33,7 +33,6 @@ public class Bloco extends Sprite{
 		return false;
 
 		}
-
 	
 	public boolean mudaComportamento(int numeroColisao){
 		
@@ -53,9 +52,7 @@ public class Bloco extends Sprite{
 		}
 		return aparecer;
 	}
-	
-	
-	
+		
 	@Override
 	public void draw(Canvas canvas) {
 		if(aparecer){
