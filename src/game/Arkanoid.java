@@ -80,8 +80,7 @@ public class Arkanoid extends GraphicApplication {
 	protected void setup() {
 		setResolution(Resolution.MODE_X);
 		setFramesPerSecond(60);
-		carregarImagens();
-		
+		carregarImagens();		
 		
 		bola = new Bola();
 		paddle = new Paddle(35);
@@ -145,12 +144,11 @@ public class Arkanoid extends GraphicApplication {
 			fase = 1;
 		} else if(pontos >= 3600 && pontos < 10800){
 			fase = 2;
-			JOptionPane.showMessageDialog(null, "Nova Fase "+(fase));
 		} else{
 			fase = 3;
 		}
 	}
-	
+		
 	public void verificaColisao(Bloco[] blocos, int numeroColisao){
 		Rect posicaoBola = bola.getBounds();		
 		for (int i = 0; i < blocos.length; i++) {
@@ -186,8 +184,15 @@ public class Arkanoid extends GraphicApplication {
 		Point posicaoPaddle = paddle.getPosition();
 		
 		if(posicaoBola.y > posicaoPaddle.y){
-			vidas--;
-			iniciaJogo();
+			if(vidas > 0){
+				vidas--;
+				JOptionPane.showMessageDialog(null, "Cuidado! Você perdeu uma vida, agora só restam:"+(vidas));
+				iniciaJogo();
+			} else {
+				JOptionPane.showMessageDialog(null, "Fim de jogo!");
+				System.exit(0);
+			}
+			
 		}		
 	}
 	
