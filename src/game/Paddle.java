@@ -36,7 +36,7 @@ public class Paddle extends Sprite {
 		Rect posicaoTamanhoPaddle = getBounds();
 		
 		if(	posicaoBola.x >= posicaoTamanhoPaddle.x && 
-			posicaoBola.x <= posicaoTamanhoPaddle.x +20 && 
+			posicaoBola.x <= posicaoTamanhoPaddle.x +posicaoTamanhoPaddle.width && 
 			posicaoBola.y == posicaoTamanhoPaddle.y-posicaoTamanhoPaddle.height)
 		{
 			bola.invertVertical();
