@@ -2,6 +2,8 @@ package game;
 
 import java.io.IOException;
 
+import javax.swing.JOptionPane;
+
 import com.senac.SimpleJava.Console;
 import com.senac.SimpleJava.Graphics.Canvas;
 import com.senac.SimpleJava.Graphics.Color;
@@ -21,7 +23,7 @@ public class Arkanoid extends GraphicApplication {
 	private int pontos;
 	private Image background1, background2, background3;
 	private int vidas = 3;
-	private int fase;
+	private int fase = 1;
 	public String teste;
 	private int tamanhoArray = 12;
 	
@@ -35,15 +37,11 @@ public class Arkanoid extends GraphicApplication {
 	
 	
 	
-	
-	private int totalColisao;
-	
-	
 	@Override
 	protected void draw(Canvas canvas) {
 		canvas.clear();
 		
-		if (pontos < 500){
+		if (fase == 1){
 			canvas.drawImage(background1, 0,0);		
 			for (int i = 0; i < 12; i++) {
 				blocosBrancos[i].draw(canvas);
@@ -51,7 +49,7 @@ public class Arkanoid extends GraphicApplication {
 				blocosPretos[i].draw(canvas);				
 			}
 			
-		} else if(pontos >= 500 ){
+		} else if(fase == 2){
 			canvas.drawImage(background2, 0,0);		
 			for (int i = 0; i < 12; i++) {				
 				blocosRosas[i].draw(canvas);
@@ -59,6 +57,8 @@ public class Arkanoid extends GraphicApplication {
 				blocosCinzaClaro[i].draw(canvas);
 				
 			}
+		} else if(fase == 3){
+			canvas.drawImage(background3, 0,0);	
 		}
 		
 		canvas.setBackground(Color.BLACK);
@@ -93,7 +93,7 @@ public class Arkanoid extends GraphicApplication {
 		
 		criaBlocos(blocosRosas, Color.MAGENTA, 5);
 		criaBlocos(blocosCinzas, Color.GRAY, 20);
-		criaBlocos(blocosCinzas, Color.LIGHTGRAY, 35);
+		criaBlocos(blocosCinzaClaro, Color.LIGHTGRAY, 35);
 		
 		
 		iniciaJogo();
@@ -124,13 +124,15 @@ public class Arkanoid extends GraphicApplication {
 		
 		controlaFases(pontos);
 
-		verificaColisao(blocosBrancos, 1);
-		verificaColisao(blocosAzuis, 1);
-		verificaColisao(blocosPretos, 1);
 		
-		if (pontos < 500){
+		if (fase == 1){
+			verificaColisao(blocosBrancos, 1);
+			verificaColisao(blocosAzuis, 1);
+			verificaColisao(blocosPretos, 1);
+		} else if (fase == 2){
 			verificaColisao(blocosRosas, 2);
 			verificaColisao(blocosCinzas, 2);
+			verificaColisao(blocosCinzaClaro, 2);
 		}
 		
 		bola.move();
@@ -139,10 +141,11 @@ public class Arkanoid extends GraphicApplication {
 	}
 	
 	public void controlaFases(int pontos){
-		if(pontos > 500){
+		if(pontos < 3600){
 			fase = 1;
-		} else if(pontos >= 500 && pontos < 800){
+		} else if(pontos >= 3600 && pontos < 10800){
 			fase = 2;
+			JOptionPane.showMessageDialog(null, "Nova Fase "+(fase));
 		} else{
 			fase = 3;
 		}
@@ -216,5 +219,7 @@ public class Arkanoid extends GraphicApplication {
 			blocos[i].setPosition(x,y);
 		}		
 	}
+
+
 
 }
