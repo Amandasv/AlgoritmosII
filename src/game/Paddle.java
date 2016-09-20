@@ -1,8 +1,6 @@
 package game;
 
 import com.senac.SimpleJava.Graphics.Color;
-import com.senac.SimpleJava.Graphics.Image;
-import com.senac.SimpleJava.Graphics.Point;
 import com.senac.SimpleJava.Graphics.Rect;
 import com.senac.SimpleJava.Graphics.Resolution;
 import com.senac.SimpleJava.Graphics.Sprite;

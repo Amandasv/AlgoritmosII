@@ -18,24 +18,16 @@ public class Arkanoid extends GraphicApplication {
 	private Bola bola;
 	private Paddle paddle;
 	
-	private int pontos;
 	private Image background1, background2, background3;
-	private int vidas = 3;
-	private int fase = 1, recorde = 2300;
-	public String teste;
-	private int tamanhoArray = 12;
+	private int vidas = 3, pontos, fase = 1, recorde = 2300, tamanhoArray = 12;
 	
-	private Bloco[] blocosAzuis = new Bloco[tamanhoArray];
 	private Bloco[] blocosBrancos = new Bloco[tamanhoArray];
-	private Bloco[] blocosPretos = new Bloco[tamanhoArray];
-	
+	private Bloco[] blocosAzuis = new Bloco[tamanhoArray];
 	private Bloco[] blocosRosas = new Bloco[tamanhoArray];
 	private Bloco[] blocosCinzas = new Bloco[tamanhoArray];
 	private Bloco[] blocosCinzaClaro = new Bloco[tamanhoArray];
-	
+	private Bloco[] blocosPretos = new Bloco[tamanhoArray];		
 	private Bloco[] blocosVerdes = new Bloco[tamanhoArray];
-	
-	
 	
 	@Override
 	protected void draw(Canvas canvas) {
@@ -75,8 +67,7 @@ public class Arkanoid extends GraphicApplication {
 		canvas.putText(264, 90, 9, ((String)"Recorde").toString());
 		canvas.putText(270, 100, 9, ((Integer)recorde).toString());
 
-		bola.draw(canvas);		
-		
+		bola.draw(canvas);				
 		paddle.draw(canvas);
 		
 	}
