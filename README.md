@@ -1,4 +1,4 @@
-# Akanoid 
+# Arkanoid 
 ### Avaliação Algoritmos II 
 
 ##
