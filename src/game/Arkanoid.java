@@ -21,14 +21,20 @@ public class Arkanoid extends GraphicApplication {
 	private int pontos;
 	private Image background1, background2, background3;
 	private int vidas = 3;
-	private int fases = 0;
+	private int fase;
 	public String teste;
 	private int tamanhoArray = 12;
 	
-	private Bloco[] blocosRosas = new Bloco[tamanhoArray];
-	private Bloco[] blocosBrancos = new Bloco[tamanhoArray];
 	private Bloco[] blocosAzuis = new Bloco[tamanhoArray];
+	private Bloco[] blocosBrancos = new Bloco[tamanhoArray];
 	private Bloco[] blocosPretos = new Bloco[tamanhoArray];
+	
+	private Bloco[] blocosRosas = new Bloco[tamanhoArray];
+	private Bloco[] blocosCinzas = new Bloco[tamanhoArray];
+	private Bloco[] blocosCinzaClaro = new Bloco[tamanhoArray];
+	
+	
+	
 	
 	private int totalColisao;
 	
@@ -36,7 +42,24 @@ public class Arkanoid extends GraphicApplication {
 	@Override
 	protected void draw(Canvas canvas) {
 		canvas.clear();
-		canvas.drawImage(background1, 0,0);
+		
+		if (pontos < 500){
+			canvas.drawImage(background1, 0,0);		
+			for (int i = 0; i < 12; i++) {
+				blocosBrancos[i].draw(canvas);
+				blocosAzuis[i].draw(canvas);
+				blocosPretos[i].draw(canvas);				
+			}
+			
+		} else if(pontos >= 500 ){
+			canvas.drawImage(background2, 0,0);		
+			for (int i = 0; i < 12; i++) {				
+				blocosRosas[i].draw(canvas);
+				blocosCinzas[i].draw(canvas);
+				blocosCinzaClaro[i].draw(canvas);
+				
+			}
+		}
 		
 		canvas.setBackground(Color.BLACK);
 		canvas.setForeground(Color.WHITE);
@@ -44,17 +67,11 @@ public class Arkanoid extends GraphicApplication {
 		canvas.putText(270, 12, 9, ((Integer)pontos).toString());
 		canvas.putText(264, 60, 9, ((String)"Vidas").toString());
 		canvas.putText(270, 70, 9, ((Integer)vidas).toString());
-//		canvas.putText(264, 90, 9, ((String)"Fase").toString());
-//		canvas.putText(270, 100, 9, ((Integer)nColisao).toString());
+		canvas.putText(264, 90, 9, ((String)"Fase").toString());
+		canvas.putText(270, 100, 9, ((Integer)fase).toString());
 //
-		bola.draw(canvas);
+		bola.draw(canvas);		
 		
-		for (int i = 0; i < 12; i++) {
-			blocosBrancos[i].draw(canvas);
-			blocosAzuis[i].draw(canvas);
-			blocosPretos[i].draw(canvas);
-//			blocosRosas[i].draw(canvas);
-		}
 		paddle.draw(canvas);
 		
 	}
@@ -70,9 +87,13 @@ public class Arkanoid extends GraphicApplication {
 		paddle = new Paddle(35);
 		
 		
-		criaBlocos(blocosBrancos, Color.WHITE, 35);
+		criaBlocos(blocosPretos, Color.BLACK, 5);		
 		criaBlocos(blocosAzuis, Color.BLUE, 20);
-		criaBlocos(blocosPretos, Color.BLACK, 5);
+		criaBlocos(blocosBrancos, Color.WHITE, 35);
+		
+		criaBlocos(blocosRosas, Color.MAGENTA, 5);
+		criaBlocos(blocosCinzas, Color.GRAY, 20);
+		criaBlocos(blocosCinzas, Color.LIGHTGRAY, 35);
 		
 		
 		iniciaJogo();
@@ -100,14 +121,31 @@ public class Arkanoid extends GraphicApplication {
 		colidiuParede(bola);
 		paddle.colidiu(bola);
 		passouPaddle(bola);		
+		
+		controlaFases(pontos);
 
 		verificaColisao(blocosBrancos, 1);
 		verificaColisao(blocosAzuis, 1);
-		verificaColisao(blocosPretos, 1);			
+		verificaColisao(blocosPretos, 1);
+		
+		if (pontos < 500){
+			verificaColisao(blocosRosas, 2);
+			verificaColisao(blocosCinzas, 2);
+		}
 		
 		bola.move();
 		
 		redraw();
+	}
+	
+	public void controlaFases(int pontos){
+		if(pontos > 500){
+			fase = 1;
+		} else if(pontos >= 500 && pontos < 800){
+			fase = 2;
+		} else{
+			fase = 3;
+		}
 	}
 	
 	public void verificaColisao(Bloco[] blocos, int numeroColisao){
@@ -126,6 +164,8 @@ public class Arkanoid extends GraphicApplication {
 			}
 		}
 	}
+	
+	
 	
 	
 	private void colidiuParede(Bola bola) {
@@ -169,15 +209,12 @@ public class Arkanoid extends GraphicApplication {
 	}
 	
 	private void criaBlocos(Bloco[] blocos, Color cor, int posicaoY){		
-		
 		for (int i = 0; i < blocos.length; i++) {
 			blocos[i] = new Bloco(cor);
 			int x = (i%12)*20+10;
 			int y = posicaoY;
 			blocos[i].setPosition(x,y);
-		}
-
-		
+		}		
 	}
 
 }
