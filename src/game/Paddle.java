@@ -33,7 +33,7 @@ public class Paddle extends Sprite {
 		Rect posicaoBola = bola.getBounds();	
 		Rect posicaoTamanhoPaddle = getBounds();
 		
-		if(	posicaoBola.x >= posicaoTamanhoPaddle.x && 
+		if(	posicaoBola.x+posicaoBola.width >= posicaoTamanhoPaddle.x && 
 			posicaoBola.x <= posicaoTamanhoPaddle.x +posicaoTamanhoPaddle.width && 
 			posicaoBola.y == posicaoTamanhoPaddle.y-posicaoTamanhoPaddle.height)
 		{
