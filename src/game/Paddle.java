@@ -22,7 +22,7 @@ public class Paddle extends Sprite {
 	
 	public void moveDireita(){
 		Rect posicaoTamanhoPaddle = getBounds();
-		if(posicaoTamanhoPaddle.x > Resolution.MSX.width - 34){
+		if(posicaoTamanhoPaddle.x >= Resolution.MSX.width - 34){
 			super.move(0, 0);
 		}else{
 			super.move(20, 0);

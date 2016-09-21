@@ -19,7 +19,7 @@ public class Arkanoid extends GraphicApplication {
 	private Paddle paddle;
 	
 	private Image background1, background2, background3;
-	private int vidas = 3, pontos, fase = 1, recorde = 2300, tamanhoArray = 12;
+	private int vidas = 4, pontos, fase = 1, recorde = 2300, tamanhoArray = 12;
 	
 	private Bloco[] blocosBrancos = new Bloco[tamanhoArray];
 	private Bloco[] blocosAzuis = new Bloco[tamanhoArray];
@@ -41,7 +41,8 @@ public class Arkanoid extends GraphicApplication {
 			}
 			
 		} else if(fase == 2){
-			canvas.drawImage(background2, 0,0);		
+			canvas.drawImage(background2, 0,0);	
+			paddle.resize(30, 3);	
 			for (int i = 0; i < 12; i++) {				
 				blocosRosas[i].draw(canvas);
 				blocosCinzas[i].draw(canvas);
@@ -50,6 +51,7 @@ public class Arkanoid extends GraphicApplication {
 
 		} else if(fase == 3){
 			canvas.drawImage(background3, 0,0);
+			paddle.resize(25, 3);
 			for (int i = 0; i < 12; i++) {	
 				blocosVerdes[i].draw(canvas);
 				blocosPretos[i].draw(canvas);
@@ -142,9 +144,12 @@ public class Arkanoid extends GraphicApplication {
 			fase = 1;
 		} else if(pontos >= 2400 && pontos < 7200){
 			fase = 2;
+		} else if(pontos >= 7200 && pontos < 12000){
+			fase = 3;			
 		} else{
-			fase = 3;
-		}		
+			JOptionPane.showMessageDialog(null, "Parabens, voce ganhou o/");
+			System.exit(0);
+		}	
 	}
 		
 	public void verificaColisao(Bloco[] blocos, int numeroColisao){
