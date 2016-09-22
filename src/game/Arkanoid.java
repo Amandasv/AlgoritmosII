@@ -185,7 +185,7 @@ public class Arkanoid extends GraphicApplication {
 		if(posicaoBola.y > posicaoPaddle.y){
 			if(vidas > 0){
 				vidas--;
-				JOptionPane.showMessageDialog(null, "Cuidado! Você perdeu uma vida, agora só restam:"+(vidas));
+				JOptionPane.showMessageDialog(null, "Cuidado! Voce perdeu uma vida, agora sp restam:"+(vidas));
 				iniciaJogo();
 			} else {
 				JOptionPane.showMessageDialog(null, "Fim de jogo!");
